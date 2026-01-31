@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Manage Student Details{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="{% static 'css/student.css' %}?v=1.0">
+
+<div class="page-title">
+    <h2>Manage Student Details</h2>
+</div>
+
+
+<div class="container">
+    <div class="main-box">
+
+        <!-- LEFT FORM -->
+        <div class="left-panel">
+            <form method="POST">
+                {% csrf_token %}
+
+                <input type="hidden" name="student_id" id="student_id" value="{{ selected_id|default:'' }}">
+
+                <div class="form-grid">
+                    <label>Roll No.</label>
+                    {{ form.roll_no }}
+
+                    <label>Name</label>
+                    {{ form.name }}
+
+                    <label>D.O.B</label>
+                    {{ form.dob }}
+
+                    <label>Contact No.</label>
+                    {{ form.contact }}
+
+                    <label>Email</label>
+                    {{ form.email }}
+
+                    <label>Select Course</label>
+                    {{ form.course }}
+
+                    <label>Gender</label>
+                    {{ form.gender }}
+
+                    <label>Admission Date</label>
+                    {{ form.admission_date }}
+
+                    <label>State</label>
+                    {{ form.state }}
+
+                    <label>City</label>
+                    {{ form.city }}
+
+                    <label>Pin Code</label>
+                    {{ form.pin_code }}
+                </div>
+
+                <label class="address-label">Address</label>
+                {{ form.address }}
+
+                <div class="btn-group">
+                    <button type="submit" name="save" class="btn save">Save</button>
+                    <button type="submit" name="update" class="btn update">Update</button>
+                    <button type="submit" name="delete" class="btn delete">Delete</button>
+                    <button type="submit" name="clear" class="btn clear">Clear</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- RIGHT PANEL -->
+        <div class="right-panel">
+
+            <form method="GET" class="search-box">
+                <input type="text" name="search" placeholder="Search by roll no or name">
+                <button type="submit">Search</button>
+            </form>
+
+            <div class="table-box">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Roll</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Gender</th>
+                            <th>DOB</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for s in students %}
+                        <tr>
+                            <td>{{ s.roll_no }}</td>
+                            <td>{{ s.name }}</td>
+                            <td>{{ s.email }}</td>
+                            <td>{{ s.get_gender_display }}</td>
+                            <td>{{ s.dob|date:"d-m-Y" }}</td>
+                            <td>
+                                <a href="?edit={{ s.id }}" class="edit-btn">Edit</a>
+                                <form method="POST" class="inline-delete">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="student_id" value="{{ s.id }}">
+                                    <button type="submit" name="delete" class="delete-row">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="6">No records found</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

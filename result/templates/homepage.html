@@ -1,0 +1,311 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResultManagement - Modern Result Management System</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}?v=3.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+    <div class="nav-container">
+        <div class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            ResultManagement
+        </div>
+
+        <nav class="nav-links">
+            <a href="#" class="active">Home</a>
+            <a href="#">Features</a>
+            <a href="#">About</a>
+            <a href="#">Pricing</a>
+            <a href="#">Contact</a>
+        </nav>
+
+        <div class="nav-actions">
+            <a href="{% url 'login' %}" class="login-btn">
+                <i class="fas fa-sign-in-alt"></i>
+                Login
+            </a>
+            <a href="{% url 'register' %}" class="register-btn">
+                <i class="fas fa-user-plus"></i>
+                Sign Up
+            </a>
+        </div>
+
+        <!-- Mobile Hamburger -->
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-container">
+        <div class="hero-left">
+            <div class="hero-badge">
+                <i class="fas fa-sparkles"></i>
+                <span>Transform Education Management</span>
+            </div>
+            
+            <h1>
+                <span class="highlight">Tripura</span> Public<br>
+                School<span class="dot">.</span>
+            </h1>
+            
+            <p class="hero-description">
+                This smart and secure platform helps in maintaining student records, managing marks. Teachers can upload results easily, while students and parents can view performance anytime. With automated calculations, grade generation, and detailed reports, the system ensures accuracy, transparency, and time-saving result processing.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="{% url 'register' %}" class="cta-btn primary">
+                    <i class="fas fa-rocket"></i>
+                    Get Started Free
+                </a>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">10K+</div>
+                    <div class="stat-label">Students</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Teachers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">99.9%</div>
+                    <div class="stat-label">Growth</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT CONTENT -->
+        <div class="hero-right">
+            <div class="floating-cards">
+                <div class="card card-1">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="card-content">
+                        <h4>Analytics Dashboard</h4>
+                        <p>Real-time insights</p>
+                    </div>
+                </div>
+
+                <div class="card card-2">
+                    <div class="card-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="card-content">
+                        <h4>PDF Reports</h4>
+                        <p>Generate instantly</p>
+                    </div>
+                </div>
+
+                <div class="card card-3">
+                    <div class="card-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="card-content">
+                        <h4>Secure Storage</h4>
+                        <p>Bank-level security</p>
+                    </div>
+                </div>
+
+                <div class="card card-4">
+                    <div class="card-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="card-content">
+                        <h4>Mobile Access</h4>
+                        <p>Anywhere, anytime</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-image">
+                <div class="image-wrapper">
+                    <div class="gradient-bg"></div>
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Education Management">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURES SECTION -->
+<section class="features">
+    <div class="container">
+        <div class="section-header">
+            <h2>Powerful Features for Modern Education</h2>
+            <p>Everything you need to manage academic results efficiently</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <h3>Dashboard Analytics</h3>
+                <p>Comprehensive analytics and insights to track student performance and institutional metrics.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Student Management</h3>
+                <p>Efficiently manage students, courses, in one centralized system.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-file-export"></i>
+                </div>
+                <h3>Report Generation</h3>
+                <p>Generate professional PDF reports and certificates with customizable templates.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <h3>Real-time Notifications</h3>
+                <p>Instant notifications for result announcements and important academic updates.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h3>Secure & Compliant</h3>
+                <p>Bank-level security with data encryption and compliance with educational standards.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-sync"></i>
+                </div>
+                <h3>Cloud Sync</h3>
+                <p>Automatic cloud synchronization ensures your data is always backed up and accessible.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="cta">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Ready to Transform Your Institution?</h2>
+            <p>Join thousands of educational institutions already using ResultManagement</p>
+            <div class="cta-buttons">
+                <a href="{% url 'register' %}" class="cta-btn primary">
+                    <i class="fas fa-rocket"></i>
+                    Start Free Trial
+                </a>
+                <a href="#" class="cta-btn secondary">
+                    <i class="fas fa-calendar"></i>
+                    Schedule Demo
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    ResultManagement
+                </div>
+                <p>Modern result management system designed for educational institutions of all sizes.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4>Product</h4>
+                <a href="#">Features</a>
+                <a href="#">Pricing</a>
+                <a href="#">Security</a>
+                <a href="#">Roadmap</a>
+            </div>
+
+            <div class="footer-section">
+                <h4>Company</h4>
+                <a href="#">About Us</a>
+                <a href="#">Blog</a>
+                <a href="#">Careers</a>
+                <a href="#">Contact</a>
+            </div>
+
+            <div class="footer-section">
+                <h4>Support</h4>
+                <a href="#">Help Center</a>
+                <a href="#">Documentation</a>
+                <a href="#">API</a>
+                <a href="#">Status</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 ResultManagement. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Cookie Policy</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+const hamburger = document.querySelector(".hamburger");
+const navLinks = document.querySelector(".nav-links");
+
+hamburger.addEventListener("click", () => {
+    navLinks.classList.toggle("open");
+    hamburger.classList.toggle("active");
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+
+// Add scroll effect to navbar
+window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+});
+</script>
+
+</body>
+</html>

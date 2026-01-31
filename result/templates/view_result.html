@@ -1,0 +1,112 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Student Results</title>
+    <link rel="stylesheet" href="{% static 'css/view_result.css' %}?v=1.0">
+</head>
+<body>
+
+<div class="container">
+
+    <h2 class="title">View Student Results</h2>
+
+    <!-- Search Section -->
+    <div class="search-section">
+        <form method="GET" class="search-box">
+            <label>Search By Roll No.</label>
+            <input type="text" name="search" placeholder="Enter roll number..." class="search-input">
+            <button type="submit" class="search-btn">Search</button>
+            <a href="{% url 'view_result' %}" class="clear-btn">Clear</a>
+        </form>
+    </div>
+
+    <!-- Results Table -->
+    <div class="table-box">
+        <table>
+            <thead>
+                <tr>
+                    <th>Roll No</th>
+                    <th>Name</th>
+                    <th>Course</th>
+                    <th>Marks Obtained</th>
+                    <th>Total Marks</th>
+                    <th>Percentage</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if results %}
+                    {% for r in results %}
+                    <tr>
+                        <td>{{ r.student.roll_no }}</td>
+                        <td>{{ r.student.name }}</td>
+                        <td>{{ r.course.name }}</td>
+                        <td>{{ r.marks_obtained }}</td>
+                        <td>{{ r.full_marks }}</td>
+                        <td class="percentage">{{ r.percentage|floatformat:2 }}%</td>
+                        <td><span class="status-badge {% if r.status == 'Pass' %}pass{% else %}fail{% endif %}">{{ r.status }}</span></td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    {% if request.GET.search %}
+                    <tr>
+                        <td colspan="7" class="no-data">No results found for roll number "{{ request.GET.search }}"</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="7" class="no-data">Enter a roll number to search for results</td>
+                    </tr>
+                    {% endif %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Grade and Advice Section -->
+    {% if results %}
+    {% for r in results %}
+    <div class="grade-advice-box">
+        <div class="grade-section">
+            <label>Grade:</label>
+            {% if r.percentage >= 90 %}
+                <span class="grade-badge grade-a">A</span>
+            {% elif r.percentage >= 80 %}
+                <span class="grade-badge grade-b">B</span>
+            {% elif r.percentage >= 70 %}
+                <span class="grade-badge grade-c">C</span>
+            {% elif r.percentage >= 60 %}
+                <span class="grade-badge grade-d">D</span>
+            {% else %}
+                <span class="grade-badge grade-f">F</span>
+            {% endif %}
+        </div>
+
+        <div class="advice-section">
+            <label>Advice:</label>
+            <p class="advice-message">
+            {% if r.percentage >= 90 %}
+                Excellent performance! You have demonstrated outstanding understanding. Keep maintaining this exceptional standard and continue your hard work.
+            {% elif r.percentage >= 80 %}
+                Great work! Your performance is very good. Continue to focus on your studies and you'll achieve even better results.
+            {% elif r.percentage >= 70 %}
+                Good performance! You have a solid understanding. Try to strengthen weaker areas and aim for improvement in upcoming exams.
+            {% elif r.percentage >= 60 %}
+                Satisfactory performance. While you have passed, there is considerable room for improvement. Focus on understanding core concepts better.
+            {% elif r.percentage >= 40 %}
+                You have just passed, but your performance needs significant improvement. Dedicate more time to studying and seek help if needed.
+            {% else %}
+                Unfortunately, you did not pass. Please review the material thoroughly and consider additional tutoring or study sessions before the next exam.
+            {% endif %}
+            </p>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Manage Course Details{% endblock %}
+
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Course Details</title>
+    <link rel="stylesheet" href="{% static 'css/course.css' %}?v=1.0">
+</head>
+<body>
+
+    <div class="page-title">
+    <h2>Manage Course Details</h2>
+    </div>
+
+<div class="container">
+
+
+    <div class="main-box">
+
+        <!-- LEFT FORM -->
+        <div class="left-panel">
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <input type="hidden" name="course_id" id="course_id" value="{{ selected_id|default:'' }}">
+
+                <label>Course Name</label>
+                {{ form.name }}
+
+                <label>Duration</label>
+                {{ form.duration }}
+
+                <label>Charges</label>
+                {{ form.charges }}
+
+                <label>Description</label>
+                {{ form.description }}
+
+                <div class="btn-row">
+                    <button type="submit" name="save" class="save">Save</button>
+                    <button type="submit" name="update" class="update">Update</button>
+                    <button type="submit" name="delete" class="delete">Delete</button>
+                    <button type="submit" name="clear" class="clear">Clear</button>
+                </div>
+            </form>
+
+        </div>
+
+        <!-- RIGHT SEARCH + TABLE -->
+        <div class="right-panel">
+
+            <form method="GET" class="search-row">
+                <label>Course Name</label>
+                <input type="text" name="search" placeholder="Search course...">
+                <button class="search-btn">Search</button>
+            </form>
+
+            <div class="table-box">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Select</th>
+                            <th>Course Name</th>
+                            <th>Duration</th>
+                            <th>Charges</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for c in courses %}
+                        <tr>
+                            <td>{{ c.id }}</td>
+                            <td>{{ c.name }}</td>
+                            <td>{{ c.duration }}</td>
+                            <td>{{ c.charges }}</td>
+                            <td>{{ c.description }}</td>
+                            <td class="actions-cell">
+                                <div class="actions">
+                                    <a class="edit-btn" href="?edit={{ c.id }}">Edit</a>
+                                    <form method="POST" class="inline-delete">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="course_id" value="{{ c.id }}">
+                                        <button type="submit" name="delete" class="delete-row">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="6">No records found</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Auto-fill JS -->
+<script>
+function fillForm(id, name, duration, charges, description) {
+    document.getElementById("course_id").value = id;
+    document.getElementsByName("name")[0].value = name;
+    document.getElementsByName("duration")[0].value = duration;
+    document.getElementsByName("charges")[0].value = charges;
+    document.getElementsByName("description")[0].value = description;
+}
+</script>
+
+</body>
+</html>
+{% endblock %}

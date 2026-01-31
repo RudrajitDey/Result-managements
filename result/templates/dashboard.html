@@ -1,0 +1,93 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Result Management System</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}?v=2.1">
+    
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="logo-title">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="logo">
+        <h2 style="background: linear-gradient(135deg, #ffffff 0%, #e8f4fd 30%, #ffffff 60%, #d1e9ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; margin: 0; font-size: 2.2rem; font-weight: 800; letter-spacing: 1px; animation: textGlow 4s ease-in-out infinite; font-family: 'Arial', sans-serif; line-height: 1.2; text-align: center; text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);">Student Result Management System</h2>
+    </div>
+
+    
+</header>
+
+<!-- MENU BAR -->
+<nav class="menu-bar">
+    <a href="/course" class="menu-btn">Course</a>
+    <a href="/student" class="menu-btn">Student</a>
+    <a href="/add_result" class="menu-btn">Result</a>
+    <a href="/view-result" class="menu-btn">View Student Result</a>
+    <a href="{% url 'logout' %}" class="menu-btn">Logout</a>
+    <a href="/exit" class="menu-btn">Exit</a>
+</nav>
+
+
+<!-- MAIN CONTENT -->
+<main class="container">
+
+    <!-- LEFT NOTIFICATION PANEL -->
+<aside class="left-box">
+    <h3>Latest Results</h3>
+
+    <div class="notif-box auto-scroll">
+        <ul>
+            {% for result in results %}
+                <li> <a href="{% url 'download_result' result.id %}" class="result-link">📢 {{ result.title }}</a></li>
+            {% empty %}
+                <li>No latest result uploaded</li>
+            {% endfor %}
+        </ul>
+        <ul>
+            {% for result in results %}
+                <li> <a href="{% url 'download_result' result.id %}" class="result-link">📢 {{ result.title }}</a></li>
+            {% empty %}
+                <li>No latest result uploaded</li>
+            {% endfor %}
+        </ul>
+    </div>
+</aside>
+
+
+    <!-- RIGHT CONTENT -->
+    <section class="right-box">
+        <img src="{% static 'image/student.jpg' %}"
+             class="banner">
+
+        <div class="stats-row">
+            <div class="card orange">
+                <h4>Total Students</h4>
+                <p>{{ total_students|default:0 }}</p>
+            </div>
+
+            <div class="card blue">
+                <h4>Total Course</h4>
+                <p>{{ total_courses|default:0 }}</p>
+            </div>
+
+            <div class="card green">
+                <h4>Total Results</h4>
+                <p>{{ total_results|default:0 }}</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <p><b>ProjectName:</b> Student Result Management System</p>
+    <p>Email Us: WebCode867@gmail.com</p>
+</footer>
+
+</body>
+</html>

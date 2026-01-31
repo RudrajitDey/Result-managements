@@ -1,0 +1,35 @@
+body{margin:0;font-family:'Poppins',sans-serif;background:#f8f9fc}
+.container{max-width:1200px;margin:0 auto;padding:24px}
+.title{text-align:center;color:#043e68;margin:0 0 18px}
+.main-box{display:grid;grid-template-columns:1fr 1.6fr;gap:20px}
+@media (max-width:900px){.main-box{grid-template-columns:1fr}}
+.left-panel,.right-panel{background:#fff;border-radius:12px;box-shadow:0 0 10px rgba(0,0,0,.08);padding:18px}
+.input-box{width:90%;padding:10px 12px;border:1px solid #d7e1ea;border-radius:8px;margin:8px 0 14px}
+textarea.input-box{min-height:90px}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap}
+button{padding:10px 14px;border:0;border-radius:8px;background:#0077b6;color:#fff;font-weight:700;cursor:pointer}
+button:hover{background:#005f87}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px;border-bottom:1px solid #eef2f7;text-align:left;font-size:14px}
+th{color:#043e68}
+.actions-cell .actions{display:flex;gap:8px;align-items:center}
+.edit-btn{display:inline-block;padding:8px 10px;border-radius:8px;background:#0077b6;color:#fff;text-decoration:none;font-weight:700}
+.edit-btn:hover{background:#005f87}
+.inline-delete{display:inline}
+.delete-row{background:#c62828}
+.delete-row:hover{background:#a61f1f}
+
+
+/* TITLE BELOW NAVBAR */
+.page-title{
+    width:100%;
+    margin:18px 0 10px;
+    text-align:center;
+}
+
+.page-title h2{
+    margin:0;
+    font-size:26px;
+    font-weight:700;
+    color:#043e68;
+}

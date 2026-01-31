@@ -1,0 +1,67 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+</head>
+<body>
+
+<div class="register-container">
+    <div class="register-box">
+        <h2>Create Account</h2>
+        
+        {% for message in messages %}
+        <h4>{{message}}</h4>
+        {% endfor %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="input-group">
+                <label>Full Name</label>
+                <input type="text" name="fullname" placeholder="Enter your name" required>
+            </div>
+
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Enter password" required>
+            </div>
+
+            <div class="input-group">
+                <label>Confirm Password</label>
+                <input type="password" name="password2" placeholder="Confirm password" required>
+            </div>
+
+            <div class="input-group">
+                <label>Role</label>
+                <select name="role" required>
+                    <option value="">Select Role</option>
+                    <option value="admin">Admin</option>
+                    <option value="user">Student</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Secret Key</label>
+                <input type="text" name="secretkey" placeholder="Secret Key" required>
+            </div>
+
+            <button type="submit">Register</button>
+
+            <p class="text">
+                Already have an account? <a href="{% url 'login' %}">Login</a>
+            </p>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Add Student Result{% endblock %}
+
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Student Result</title>
+    <link rel="stylesheet" href="{% static 'css/add_result.css' %}?v=1.0">
+</head>
+<body>
+
+    <div class="page-title">
+    <h2>Manage Result Details</h2>
+    </div>
+
+<div class="container">
+
+    <div class="main-box">
+
+        <!-- LEFT FORM -->
+        <div class="left-panel">
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <input type="hidden" name="result_id" id="result_id" value="{{ selected_id|default:'' }}">
+
+                <label>Select Student</label>
+                {{ form.student }}
+
+                <label>Name</label>
+                <input type="text" class="input-box" value="{{ student_name }}" disabled>
+
+                <label>Select Course</label>
+                {{ form.course }}
+
+                <label>Course Name</label>
+                <input type="text" class="input-box" value="{{ course_name }}" disabled>
+
+                <label>Marks Obtained</label>
+                {{ form.marks_obtained }}
+
+                <label>Full Marks</label>
+                {{ form.full_marks }}
+
+                <label>Status</label>
+                {{ form.status }}
+
+                <div class="btn-row">
+                    <button type="submit" name="save" class="save">Submit</button>
+                    <button type="submit" name="update" class="update">Update</button>
+                    <button type="submit" name="delete" class="delete">Delete</button>
+                    <button type="submit" name="clear" class="clear">Clear</button>
+                </div>
+            </form>
+
+        </div>
+
+        <!-- RIGHT SEARCH + TABLE -->
+        <div class="right-panel">
+
+            <form method="GET" class="search-row">
+                <label>Search | Roll No. / Name / Course</label>
+                <input type="text" name="search" placeholder="Search...">
+                <button type="submit" class="search-btn">Search</button>
+            </form>
+
+            <div class="table-box">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Roll No.</th>
+                            <th>Name</th>
+                            <th>Course</th>
+                            <th>Marks</th>
+                            <th>Full Marks</th>
+                            <th>Percentage</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for r in results %}
+                        <tr>
+                            <td>{{ r.student.roll_no }}</td>
+                            <td>{{ r.student.name }}</td>
+                            <td>{{ r.course.name }}</td>
+                            <td>{{ r.marks_obtained }}</td>
+                            <td>{{ r.full_marks }}</td>
+                            <td>{{ r.percentage|floatformat:2 }}%</td>
+                            <td>{{ r.status }}</td>
+                            <td class="actions-cell">
+                                <div class="actions">
+                                    <a class="edit-btn" href="?edit={{ r.id }}">Edit</a>
+                                    <form method="POST" class="inline-delete">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="result_id" value="{{ r.id }}">
+                                        <button type="submit" name="delete" class="delete-row">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="8">No records found</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+{% endblock %}
