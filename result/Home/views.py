@@ -313,4 +313,45 @@ def user_logout(request):
     return redirect('login')
 
 
+# New beautiful page views
+def about_us(request):
+    return render(request, 'about_us.html')
+
+def services(request):
+    return render(request, 'services.html')
+
+def contact(request):
+    return render(request, 'contact.html')
+
+def achievements(request):
+    return render(request, 'achievements.html')
+
+def privacy_policy(request):
+    return render(request, 'privacy_policy.html')
+
+def terms_of_service(request):
+    return render(request, 'terms_of_services.html')
+
+def help(request):
+    return render(request, 'help.html')
+
+def faqs(request):
+    return render(request, 'faqs.html')
+
+def help_center(request):
+    return render(request, 'help_center.html')
+
+def documentation(request):
+    return render(request, 'documentation.html')
+
+def whatsapp(request):
+    return render(request, 'whatsapp.html')
+
+def status(request):
+    return render(request, 'status.html')
+
+def cookie_policy(request):
+    return render(request, 'cookie_policy.html')
+
+
 

@@ -1,0 +1,558 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Student Result Management System</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}?v=2.1">
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+        
+        .contact-section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            color: #043e68;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #fa709a, #fee140);
+            border-radius: 2px;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+        
+        .contact-form {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #043e68;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #fa709a;
+            box-shadow: 0 0 0 3px rgba(250, 112, 154, 0.1);
+        }
+        
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .submit-button {
+            background: linear-gradient(135deg, #fa709a, #fee140);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+        }
+        
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(250, 112, 154, 0.3);
+        }
+        
+        .contact-info {
+            padding: 40px;
+        }
+        
+        .info-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .info-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #fa709a, #fee140);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .info-title {
+            font-size: 1.3rem;
+            color: #043e68;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .info-text {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .info-link {
+            color: #fa709a;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .info-link:hover {
+            color: #fee140;
+        }
+        
+        .map-section {
+            background: #f8f9fc;
+            padding: 60px 20px;
+        }
+        
+        .map-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .map-placeholder {
+            background: linear-gradient(135deg, #e1e8ed, #f0f3f7);
+            border-radius: 20px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 1.2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .faq-section {
+            padding: 80px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: white;
+            margin-bottom: 15px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .faq-question {
+            padding: 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #043e68;
+            transition: background-color 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            background-color: #f8f9fc;
+        }
+        
+        .faq-arrow {
+            transition: transform 0.3s ease;
+            font-size: 1.2rem;
+        }
+        
+        .faq-item.active .faq-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 0 25px 25px;
+            max-height: 300px;
+        }
+        
+        .social-section {
+            background: linear-gradient(135deg, #043e68, #0a4a78);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .social-title {
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .social-link {
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        
+        .social-link:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.2);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .social-links {
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo-title">
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="logo">
+            <h2 style="background: linear-gradient(135deg, #ffffff 0%, #e8f4fd 30%, #ffffff 60%, #d1e9ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; margin: 0; font-size: 2.2rem; font-weight: 800; letter-spacing: 1px; animation: textGlow 4s ease-in-out infinite; font-family: 'Arial', sans-serif; line-height: 1.2; text-align: center; text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);">Student Result Management System</h2>
+        </div>
+    </header>
+
+
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Get in Touch</h1>
+            <p class="hero-subtitle">We're here to help you transform your educational institution with innovative result management solutions.</p>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="contact-section">
+        <h2 class="section-title">Contact Us</h2>
+        
+        <div class="contact-container">
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label class="form-label" for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" class="form-input">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="institution">Institution Name *</label>
+                        <input type="text" id="institution" name="institution" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="subject">Subject *</label>
+                        <input type="text" id="subject" name="subject" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="message">Message *</label>
+                        <textarea id="message" name="message" class="form-textarea" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-button">Send Message</button>
+                </form>
+            </div>
+            
+            <div class="contact-info">
+                <div class="info-card">
+                    <div class="info-icon">📧</div>
+                    <h3 class="info-title">Email Us</h3>
+                    <p class="info-text">
+                        General Inquiries: <a href="mailto:info@resultmanagement.com" class="info-link">info@resultmanagement.com</a><br>
+                        Support: <a href="mailto:support@resultmanagement.com" class="info-link">support@resultmanagement.com</a>
+                    </p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">📞</div>
+                    <h3 class="info-title">Call Us</h3>
+                    <p class="info-text">
+                        Main Office: <a href="tel:+1234567890" class="info-link">+1 (234) 567-890</a><br>
+                        Support Hotline: <a href="tel:+1234567891" class="info-link">+1 (234) 567-891</a>
+                    </p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">📍</div>
+                    <h3 class="info-title">Visit Us</h3>
+                    <p class="info-text">
+                        123 Education Street<br>
+                        Learning City, LC 12345<br>
+                        United States
+                    </p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">🕒</div>
+                    <h3 class="info-title">Business Hours</h3>
+                    <p class="info-text">
+                        Monday - Friday: 9:00 AM - 6:00 PM<br>
+                        Saturday: 10:00 AM - 4:00 PM<br>
+                        Sunday: Closed
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAP SECTION -->
+    <section class="map-section">
+        <div class="map-container">
+            <h2 class="section-title">Find Us</h2>
+            <div class="map-placeholder">
+                🗺️ Interactive Map Coming Soon
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="faq-section">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>How quickly can I get started with the system?</span>
+                <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                You can get started within minutes! Our streamlined onboarding process allows you to set up your institution, add students, and begin managing results immediately. We also provide comprehensive documentation and video tutorials to help you get the most out of our platform.
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>What kind of support do you offer?</span>
+                <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                We offer 24/7 customer support through email, phone, and live chat. Our dedicated support team is always ready to help you with any questions or issues you may encounter. Premium and Enterprise packages also include priority support with dedicated account managers.
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Is my data secure?</span>
+                <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                Absolutely! We use enterprise-grade security measures including SSL encryption, regular security audits, and compliance with data protection regulations like GDPR and FERPA. Your data is backed up regularly and stored in secure, redundant servers.
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Can I customize the system for my institution?</span>
+                <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                Yes! Our Enterprise package offers full customization options including custom branding, integrations with your existing systems, and tailored features to meet your specific needs. We also offer API access for advanced customizations.
+            </div>
+        </div>
+    </section>
+
+    <!-- SOCIAL SECTION -->
+    <section class="social-section">
+        <h2 class="social-title">Connect With Us</h2>
+        <div class="social-links">
+            <a href="#" class="social-link" title="Facebook">📘</a>
+            <a href="#" class="social-link" title="Twitter">🐦</a>
+            <a href="#" class="social-link" title="LinkedIn">💼</a>
+            <a href="#" class="social-link" title="Instagram">📷</a>
+            <a href="#" class="social-link" title="YouTube">📺</a>
+            <a href="#" class="social-link" title="WhatsApp">💬</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>&copy; 2024 Student Result Management System. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const isActive = faqItem.classList.contains('active');
+                
+                // Close all FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Open clicked item if it wasn't active
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+
+        // Contact Form
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Simple validation
+            if (!data.name || !data.email || !data.institution || !data.subject || !data.message) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            // Show success message (in a real application, this would send the data to a server)
+            alert('Thank you for your message! We will get back to you within 24 hours.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>

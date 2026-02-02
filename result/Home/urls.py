@@ -16,4 +16,19 @@ urlpatterns = [
     path('logout/', views.user_logout, name='logout'),
     path('register/', views.user_register, name='register'),
     path('download/<int:id>/', views.download_result, name='download_result'),
+    
+    # New beautiful pages
+    path('about/', views.about_us, name='about_us'),
+    path('services/', views.services, name='services'),
+    path('contact/', views.contact, name='contact'),
+    path('achievements/', views.achievements, name='achievements'),
+    path('privacy-policy/', views.privacy_policy, name='privacy_policy'),
+    path('terms-of-service/', views.terms_of_service, name='terms_of_service'),
+    path('help/', views.help, name='help'),
+    path('faqs/', views.faqs, name='faqs'),
+    path('help-center/', views.help_center, name='help_center'),
+    path('documentation/', views.documentation, name='documentation'),
+    path('whatsapp/', views.whatsapp, name='whatsapp'),
+    path('status/', views.status, name='status'),
+    path('cookie-policy/', views.cookie_policy, name='cookie_policy'),
 ]

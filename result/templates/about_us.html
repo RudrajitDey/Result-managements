@@ -1,0 +1,383 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Student Result Management System</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}?v=2.1">
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+        
+        .content-section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            color: #043e68;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            color: #043e68;
+            margin-bottom: 15px;
+        }
+        
+        .feature-description {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .team-section {
+            background: #f8f9fc;
+            padding: 60px 20px;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .team-member {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+        
+        .member-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+        }
+        
+        .member-name {
+            font-size: 1.3rem;
+            color: #043e68;
+            margin-bottom: 10px;
+        }
+        
+        .member-role {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .stats-section {
+            background: linear-gradient(135deg, #043e68, #0a4a78);
+            color: white;
+            padding: 60px 20px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .stat-item {
+            padding: 20px;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #ffffff, #e3f2fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .features-grid,
+            .team-grid,
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo-title">
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="logo">
+            <h2 style="background: linear-gradient(135deg, #ffffff 0%, #e8f4fd 30%, #ffffff 60%, #d1e9ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; margin: 0; font-size: 2.2rem; font-weight: 800; letter-spacing: 1px; animation: textGlow 4s ease-in-out infinite; font-family: 'Arial', sans-serif; line-height: 1.2; text-align: center; text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);">Student Result Management System</h2>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">About Student Result Management System</h1>
+            <p class="hero-subtitle">Empowering educational institutions with innovative technology solutions for seamless result management and academic excellence.</p>
+        </div>
+    </section>
+
+    <!-- CONTENT SECTION -->
+    <section class="content-section">
+        <h2 class="section-title">Our Mission & Vision</h2>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3 class="feature-title">Our Mission</h3>
+                <p class="feature-description">To provide educational institutions with cutting-edge technology solutions that streamline result management, enhance academic performance tracking, and foster student success through data-driven insights.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🔮</div>
+                <h3 class="feature-title">Our Vision</h3>
+                <p class="feature-description">To become the global leader in educational management systems, transforming how institutions track, analyze, and utilize student performance data to create better learning outcomes.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">💡</div>
+                <h3 class="feature-title">Our Values</h3>
+                <p class="feature-description">Innovation, integrity, and excellence drive everything we do. We believe in creating solutions that make education more accessible, transparent, and effective for everyone involved.</p>
+            </div>
+        </div>
+        
+        <h2 class="section-title">Why Choose Us</h2>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3 class="feature-title">Advanced Technology</h3>
+                <p class="feature-description">Built with the latest web technologies ensuring fast, secure, and reliable performance for institutions of all sizes.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">Data Analytics</h3>
+                <p class="feature-description">Powerful analytics tools that provide deep insights into student performance and help educators make informed decisions.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3 class="feature-title">Secure & Private</h3>
+                <p class="feature-description">Enterprise-grade security measures ensure that all student data remains confidential and protected at all times.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3 class="feature-title">Mobile Friendly</h3>
+                <p class="feature-description">Access and manage results from any device, anywhere, with our responsive design that works perfectly on smartphones and tablets.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3 class="feature-title">Easy to Use</h3>
+                <p class="feature-description">Intuitive interface designed for educators and administrators with minimal technical knowledge required.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🌍</div>
+                <h3 class="feature-title">Global Support</h3>
+                <p class="feature-description">24/7 customer support and regular updates to ensure your system always runs smoothly with the latest features.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEAM SECTION -->
+    <section class="team-section">
+        <h2 class="section-title">Meet Our Team</h2>
+        
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="member-avatar">👨‍💼</div>
+                <h3 class="member-name">Dr. John Smith</h3>
+                <p class="member-role">CEO & Founder</p>
+                <p class="feature-description">20+ years in educational technology and passionate about transforming learning experiences.</p>
+            </div>
+            
+            <div class="team-member">
+                <div class="member-avatar">👩‍💻</div>
+                <h3 class="member-name">Sarah Johnson</h3>
+                <p class="member-role">CTO</p>
+                <p class="feature-description">Expert in scalable web applications and ensuring our platform meets the highest technical standards.</p>
+            </div>
+            
+            <div class="team-member">
+                <div class="member-avatar">👨‍🎓</div>
+                <h3 class="member-name">Michael Chen</h3>
+                <p class="member-role">Head of Education</p>
+                <p class="feature-description">Former educator with deep understanding of academic institutions' needs and challenges.</p>
+            </div>
+            
+            <div class="team-member">
+                <div class="member-avatar">👩‍🎨</div>
+                <h3 class="member-name">Emily Davis</h3>
+                <p class="member-role">UX Director</p>
+                <p class="feature-description">Creating intuitive user experiences that make complex tasks simple and enjoyable.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS SECTION -->
+    <section class="stats-section">
+        <h2 class="section-title" style="color: white;">Our Impact</h2>
+        
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Educational Institutions</div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="stat-number">50K+</div>
+                <div class="stat-label">Students Managed</div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="stat-number">1M+</div>
+                <div class="stat-label">Results Processed</div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="stat-number">99.9%</div>
+                <div class="stat-label">Uptime</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>&copy; 2024 Student Result Management System. All rights reserved.</p>
+    </footer>
+</body>
+</html>

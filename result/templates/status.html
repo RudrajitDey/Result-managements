@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Status Page | Result Center Management System</title>
+
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    body{
+      background: #f4f6f9;
+      color: #222;
+      line-height: 1.7;
+    }
+
+    /* Header */
+    .header{
+      background: linear-gradient(135deg, #0b4f6c, #145da0);
+      color: white;
+      padding: 35px 15px;
+      text-align: center;
+      box-shadow: 0px 3px 10px rgba(0,0,0,0.15);
+    }
+
+    .header h1{
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .header p{
+      font-size: 15px;
+      opacity: 0.95;
+    }
+
+    /* Container */
+    .container{
+      max-width: 950px;
+      margin: 25px auto;
+      padding: 0 15px;
+    }
+
+    /* Card */
+    .card{
+      background: white;
+      padding: 25px;
+      border-radius: 14px;
+      box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
+      margin-bottom: 18px;
+    }
+
+    /* Overall Status */
+    .overall{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .overall h2{
+      font-size: 22px;
+      color: #0b4f6c;
+    }
+
+    .badge{
+      padding: 8px 14px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 700;
+      display: inline-block;
+      letter-spacing: 0.3px;
+    }
+
+    .online{
+      background: #e7f8ef;
+      color: #0a7a3c;
+      border: 1px solid #bfe9d1;
+    }
+
+    .maintenance{
+      background: #fff6e8;
+      color: #a85a00;
+      border: 1px solid #ffd7a6;
+    }
+
+    .down{
+      background: #ffecec;
+      color: #c62828;
+      border: 1px solid #ffbaba;
+    }
+
+    .meta{
+      margin-top: 10px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    /* Services */
+    .services{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    .service{
+      border: 1px solid #e6edf5;
+      border-radius: 12px;
+      padding: 14px;
+      background: #fbfdff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .service h4{
+      font-size: 15.5px;
+      color: #0b4f6c;
+    }
+
+    .service small{
+      display: block;
+      color: #666;
+      font-size: 13px;
+      margin-top: 3px;
+    }
+
+    .dot{
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 8px;
+    }
+
+    .dot-green{ background: #22c55e; }
+    .dot-yellow{ background: #f59e0b; }
+    .dot-red{ background: #ef4444; }
+
+    .status-text{
+      font-weight: 700;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    /* Incidents */
+    .incident{
+      border-left: 5px solid #145da0;
+      background: #eaf4ff;
+      padding: 14px 16px;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+
+    .incident h4{
+      color: #0b4f6c;
+      margin-bottom: 6px;
+      font-size: 16px;
+    }
+
+    .incident p{
+      font-size: 14.5px;
+      color: #333;
+    }
+
+    /* Footer */
+    footer{
+      text-align: center;
+      padding: 18px 10px;
+      color: #555;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    /* Responsive */
+    @media(max-width: 650px){
+      .services{
+        grid-template-columns: 1fr;
+      }
+
+      .header h1{
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <h1>Result Center Management System</h1>
+    <p>System Status Page</p>
+  </header>
+
+  <main class="container">
+
+    <!-- Overall Status -->
+    <section class="card">
+      <div class="overall">
+        <h2>Current System Status</h2>
+        <span id="overallBadge" class="badge online">All Systems Operational</span>
+      </div>
+
+      <p class="meta">
+        Uptime: <strong>99.9%</strong> | Last Checked:
+        <strong id="lastChecked">Loading...</strong>
+      </p>
+    </section>
+
+    <!-- Services Status -->
+    <section class="card">
+      <h2 style="color:#0b4f6c; font-size:20px;">Services</h2>
+      <p class="meta">Live status of system components.</p>
+
+      <div class="services">
+
+        <div class="service">
+          <div>
+            <h4>Login Service</h4>
+            <small>User authentication & access</small>
+          </div>
+          <div class="status-text">
+            <span class="dot dot-green"></span> Operational
+          </div>
+        </div>
+
+        <div class="service">
+          <div>
+            <h4>Database</h4>
+            <small>Student & result records</small>
+          </div>
+          <div class="status-text">
+            <span class="dot dot-green"></span> Operational
+          </div>
+        </div>
+
+        <div class="service">
+          <div>
+            <h4>Result Publishing</h4>
+            <small>Marks upload & publish</small>
+          </div>
+          <div class="status-text">
+            <span class="dot dot-yellow"></span> Partial Outage
+          </div>
+        </div>
+
+        <div class="service">
+          <div>
+            <h4>Report Generation</h4>
+            <small>PDF/print marksheet</small>
+          </div>
+          <div class="status-text">
+            <span class="dot dot-green"></span> Operational
+          </div>
+        </div>
+
+        <div class="service">
+          <div>
+            <h4>Notifications</h4>
+            <small>Email/SMS updates</small>
+          </div>
+          <div class="status-text">
+            <span class="dot dot-green"></span> Operational
+          </div>
+        </div>
+
+        <div class="service">
+          <div>
+            <h4>Admin Panel</h4>
+            <small>System management</small>
+          </div>
+          <div class="status-text">
+            <span class="dot dot-green"></span> Operational
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Incident Updates -->
+    <section class="card">
+      <h2 style="color:#0b4f6c; font-size:20px;">Incident Updates</h2>
+      <p class="meta">Recent maintenance or service incidents.</p>
+
+      <div class="incident">
+        <h4>Partial Outage: Result Publishing</h4>
+        <p>
+          Some users may face delays while publishing results. Our team is working to resolve
+          the issue as soon as possible.
+          <br><strong>Status:</strong> Investigating
+        </p>
+      </div>
+
+      <div class="incident" style="border-left-color:#0a7a3c; background:#e7f8ef;">
+        <h4>Maintenance Completed</h4>
+        <p>
+          System maintenance completed successfully. Performance has been improved.
+          <br><strong>Status:</strong> Resolved
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    © 2026 Result Center Management System | All Rights Reserved
+  </footer>
+
+  <script>
+    // Show live time as "Last Checked"
+    const lastChecked = document.getElementById("lastChecked");
+    function updateTime(){
+      const now = new Date();
+      lastChecked.innerText = now.toLocaleString();
+    }
+    updateTime();
+    setInterval(updateTime, 5000);
+
+    // OPTIONAL: You can change overall status here:
+    // "online" | "maintenance" | "down"
+    const systemMode = "online";
+
+    const overallBadge = document.getElementById("overallBadge");
+
+    if(systemMode === "online"){
+      overallBadge.className = "badge online";
+      overallBadge.innerText = "All Systems Operational";
+    }
+    else if(systemMode === "maintenance"){
+      overallBadge.className = "badge maintenance";
+      overallBadge.innerText = "Maintenance Ongoing";
+    }
+    else if(systemMode === "down"){
+      overallBadge.className = "badge down";
+      overallBadge.innerText = "Major Outage";
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,490 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Student Result Management System</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}?v=2.1">
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+        
+        .services-section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            color: #043e68;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            border-radius: 2px;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+        
+        .service-header {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+        
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+        
+        .service-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .service-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .service-content {
+            padding: 30px;
+        }
+        
+        .service-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .service-features {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        
+        .service-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            color: #555;
+            display: flex;
+            align-items: center;
+        }
+        
+        .service-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .service-features li::before {
+            content: '✓';
+            color: #4facfe;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .service-price {
+            background: #f8f9fc;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .price-amount {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #043e68;
+            margin-bottom: 5px;
+        }
+        
+        .price-period {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(79, 172, 254, 0.3);
+        }
+        
+        .features-section {
+            background: #f8f9fc;
+            padding: 80px 20px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .feature-item {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .feature-title {
+            font-size: 1.3rem;
+            color: #043e68;
+            margin-bottom: 10px;
+        }
+        
+        .feature-description {
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .testimonial-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #043e68, #0a4a78);
+            color: white;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .testimonial-card {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: #4facfe;
+        }
+        
+        .testimonial-role {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .services-grid,
+            .features-grid,
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo-title">
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="logo">
+            <h2 style="background: linear-gradient(135deg, #ffffff 0%, #e8f4fd 30%, #ffffff 60%, #d1e9ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; margin: 0; font-size: 2.2rem; font-weight: 800; letter-spacing: 1px; animation: textGlow 4s ease-in-out infinite; font-family: 'Arial', sans-serif; line-height: 1.2; text-align: center; text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);">Student Result Management System</h2>
+        </div>
+    </header>
+
+
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Our Services</h1>
+            <p class="hero-subtitle">Comprehensive solutions designed to transform educational management and enhance student success through innovative technology.</p>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section class="services-section">
+        <h2 class="section-title">Our Premium Services</h2>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-header">
+                    <div class="service-icon">📊</div>
+                    <h3 class="service-title">Basic Package</h3>
+                    <p class="service-subtitle">Perfect for small institutions</p>
+                </div>
+                <div class="service-content">
+                    <p class="service-description">Essential result management features designed for small schools and tutoring centers with up to 500 students.</p>
+                    <ul class="service-features">
+                        <li>Student enrollment management</li>
+                        <li>Result entry and storage</li>
+                        <li>Basic reporting dashboard</li>
+                        <li>Email notifications</li>
+                        <li>Mobile responsive design</li>
+                    </ul>
+                    <div class="service-price">
+                        <div class="price-amount">$29</div>
+                        <div class="price-period">per month</div>
+                    </div>
+                    <a href="/contact" class="cta-button">Get Started</a>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-header">
+                    <div class="service-icon">🚀</div>
+                    <h3 class="service-title">Professional Package</h3>
+                    <p class="service-subtitle">Ideal for growing institutions</p>
+                </div>
+                <div class="service-content">
+                    <p class="service-description">Advanced features for medium-sized institutions with comprehensive analytics and automation tools.</p>
+                    <ul class="service-features">
+                        <li>Everything in Basic</li>
+                        <li>Advanced analytics dashboard</li>
+                        <li>Automated report generation</li>
+                        <li>Parent portal access</li>
+                        <li>SMS notifications</li>
+                        <li>Data export capabilities</li>
+                    </ul>
+                    <div class="service-price">
+                        <div class="price-amount">$79</div>
+                        <div class="price-period">per month</div>
+                    </div>
+                    <a href="/contact" class="cta-button">Get Started</a>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-header">
+                    <div class="service-icon">⭐</div>
+                    <h3 class="service-title">Enterprise Package</h3>
+                    <p class="service-subtitle">Complete solution for large institutions</p>
+                </div>
+                <div class="service-content">
+                    <p class="service-description">Full-featured platform with unlimited students, custom integrations, and priority support.</p>
+                    <ul class="service-features">
+                        <li>Everything in Professional</li>
+                        <li>Unlimited students</li>
+                        <li>Custom integrations</li>
+                        <li>API access</li>
+                        <li>Priority 24/7 support</li>
+                        <li>Custom branding</li>
+                        <li>Advanced security features</li>
+                    </ul>
+                    <div class="service-price">
+                        <div class="price-amount">Custom</div>
+                        <div class="price-period">contact us</div>
+                    </div>
+                    <a href="/contact" class="cta-button">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="features-section">
+        <h2 class="section-title">Why Choose Our Services</h2>
+        
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon">🔧</div>
+                <h3 class="feature-title">Easy Setup</h3>
+                <p class="feature-description">Get started in minutes with our intuitive setup wizard and comprehensive documentation.</p>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">📈</div>
+                <h3 class="feature-title">Scalable</h3>
+                <p class="feature-description">Grow from 50 to 50,000 students seamlessly without changing platforms.</p>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">🎓</div>
+                <h3 class="feature-title">Education Focused</h3>
+                <p class="feature-description">Built specifically for educational institutions with industry-specific features.</p>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">🔄</div>
+                <h3 class="feature-title">Regular Updates</h3>
+                <p class="feature-description">Continuous improvements and new features based on educator feedback.</p>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">🌍</div>
+                <h3 class="feature-title">Global Standards</h3>
+                <p class="feature-description">Compliant with international educational standards and data protection laws.</p>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">💬</div>
+                <h3 class="feature-title">24/7 Support</h3>
+                <p class="feature-description">Round-the-clock customer support to ensure smooth operations.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIAL SECTION -->
+    <section class="testimonial-section">
+        <h2 class="section-title" style="color: white;">What Our Clients Say</h2>
+        
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-text">"The Student Result Management System has transformed how we handle student assessments. It's intuitive, reliable, and saves us countless hours each month."</p>
+                <p class="testimonial-author">Dr. Sarah Williams</p>
+                <p class="testimonial-role">Principal, Riverside Academy</p>
+            </div>
+            
+            <div class="testimonial-card">
+                <p class="testimonial-text">"The analytics features are incredible. We can now track student performance trends and make data-driven decisions to improve our teaching methods."</p>
+                <p class="testimonial-author">Michael Chen</p>
+                <p class="testimonial-role">Academic Director, Tech Institute</p>
+            </div>
+            
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Excellent customer support and a platform that actually understands the needs of educational institutions. Highly recommended!"</p>
+                <p class="testimonial-author">Jennifer Martinez</p>
+                <p class="testimonial-role">Administrator, Learning Center</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>&copy; 2024 Student Result Management System. All rights reserved.</p>
+    </footer>
+</body>
+</html>

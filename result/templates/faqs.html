@@ -1,0 +1,528 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs - Student Result Management System</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}?v=2.1">
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+        
+        .faq-section {
+            padding: 60px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            color: #043e68;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+        
+        .faq-categories {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #e1e8ed;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: #043e68;
+        }
+        
+        .category-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .category-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .faq-item {
+            background: white;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .faq-question {
+            padding: 25px 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #043e68;
+            transition: background-color 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            background-color: #f8f9fc;
+        }
+        
+        .faq-arrow {
+            transition: transform 0.3s ease;
+            font-size: 1.2rem;
+            color: #667eea;
+        }
+        
+        .faq-item.active .faq-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            padding: 0 30px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 0 30px 25px;
+            max-height: 500px;
+        }
+        
+        .search-section {
+            background: #f8f9fc;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: 2px solid #e1e8ed;
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .search-btn:hover {
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .contact-section {
+            background: linear-gradient(135deg, #043e68, #0a4a78);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .contact-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .contact-description {
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .contact-btn {
+            background: white;
+            color: #043e68;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255,255,255,0.3);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .faq-categories {
+                gap: 10px;
+            }
+            
+            .category-btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo-title">
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="logo">
+            <h2 style="background: linear-gradient(135deg, #ffffff 0%, #e8f4fd 30%, #ffffff 60%, #d1e9ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; margin: 0; font-size: 2.2rem; font-weight: 800; letter-spacing: 1px; animation: textGlow 4s ease-in-out infinite; font-family: 'Arial', sans-serif; line-height: 1.2; text-align: center; text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);">Student Result Management System</h2>
+        </div>
+    </header>
+
+
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Frequently Asked Questions</h1>
+            <p class="hero-subtitle">Find answers to common questions about our Student Result Management System.</p>
+        </div>
+    </section>
+
+    <!-- SEARCH SECTION -->
+    <section class="search-section">
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search FAQs..." id="searchInput">
+            <button class="search-btn" onclick="searchFAQs()">🔍</button>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="faq-section">
+        <h2 class="section-title">Browse by Category</h2>
+        
+        <div class="faq-categories">
+            <button class="category-btn active" onclick="filterFAQs('all')">All</button>
+            <button class="category-btn" onclick="filterFAQs('general')">General</button>
+            <button class="category-btn" onclick="filterFAQs('pricing')">Pricing</button>
+            <button class="category-btn" onclick="filterFAQs('technical')">Technical</button>
+            <button class="category-btn" onclick="filterFAQs('security')">Security</button>
+            <button class="category-btn" onclick="filterFAQs('support')">Support</button>
+        </div>
+        
+        <div id="faqContainer">
+            <!-- General FAQs -->
+            <div class="faq-item" data-category="general">
+                <div class="faq-question">
+                    <span>What is Student Result Management System?</span>
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Student Result Management System is a comprehensive digital platform designed to help educational institutions efficiently manage, track, and analyze student academic results. It provides tools for result entry, storage, analysis, reporting, and communication with students and parents.
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="general">
+                <div class="faq-question">
+                    <span>Who can use this system?</span>
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Our system is designed for educational institutions of all sizes, including schools, colleges, universities, tutoring centers, and training institutes. It serves administrators, teachers, students, and parents.
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="general">
+                <div class="faq-question">
+                    <span>How quickly can I get started?</span>
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    You can get started within minutes! Our streamlined onboarding process allows you to set up your institution, add students, and begin managing results immediately. We also provide comprehensive documentation and video tutorials.
+                </div>
+            </div>
+            
+            <!-- Pricing FAQs -->
+            <div class="faq-item" data-category="pricing">
+                <div class="faq-question">
+                    <span>What pricing plans are available?</span>
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    We offer three pricing plans: Basic ($29/month for up to 500 students), Professional ($79/month for growing institutions), and Enterprise (custom pricing for large institutions). Each plan includes different features and support levels.
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="pricing">
+                <div class="faq-question">
+                    <span>Can I change my plan later?</span>
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Yes! You can upgrade or downgrade your plan at any time. Changes take effect at the beginning of your next billing cycle, and we'll prorate any differences.
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="pricing">
+                <div class="faq-question">
+                    <span>Is there a free trial available?</span>
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Yes! We offer a 14-day free trial with full access to all Professional plan features. No credit card required to start your trial.
+                </div>
+            </div>
+            
+            <!-- Technical FAQs -->
+            <div class="faq-item" data-category="technical">
+                <div class="faq-question">
+                    <span>What are the system requirements?</span>
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Our system is web-based and works on any modern browser (Chrome, Firefox, Safari, Edge) on desktop, tablet, and mobile devices. No software installation required. An internet connection is needed for access.
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="technical">
+                <div class="faq-question">
+                    <span>Can I import existing data?</span>
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Yes! We support data import from Excel, CSV, and other common formats. Our migration team can also assist with transferring data from your existing system.
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="technical">
+                <div class="faq-question">
+                    <span>Is there an API available?</span>
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Yes! Enterprise plan includes full API access for custom integrations. Professional plan offers limited API access for basic operations.
+                </div>
+            </div>
+            
+            <!-- Security FAQs -->
+            <div class="faq-item" data-category="security">
+                <div class="faq-question">
+                    <span>How secure is my data?</span>
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    We use enterprise-grade security measures including SSL encryption, regular security audits, and compliance with data protection regulations like GDPR and FERPA. Your data is backed up regularly and stored in secure, redundant servers.
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="security">
+                <div class="faq-question">
+                    <span>Where is my data stored?</span>
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Your data is stored in secure, SOC 2 compliant data centers with redundant backups. We offer data residency options for specific regions to comply with local regulations.
+                </div>
+            </div>
+            
+            <!-- Support FAQs -->
+            <div class="faq-item" data-category="support">
+                <div class="faq-question">
+                    <span>What kind of support do you offer?</span>
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    We offer 24/7 customer support through email, phone, and live chat. Basic plan includes email support, Professional includes phone and live chat, Enterprise includes priority support with dedicated account managers.
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="support">
+                <div class="faq-question">
+                    <span>Do you provide training?</span>
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Yes! We provide comprehensive training including video tutorials, documentation, webinars, and personalized training sessions for Enterprise customers.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="contact-section">
+        <h2 class="contact-title">Still Have Questions?</h2>
+        <p class="contact-description">Can't find the answer you're looking for? Our support team is here to help!</p>
+        <a href="/contact" class="contact-btn">Contact Support</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>&copy; 2024 Student Result Management System. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const isActive = faqItem.classList.contains('active');
+                
+                // Close all FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Open clicked item if it wasn't active
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+
+        // Category Filter
+        function filterFAQs(category) {
+            const faqItems = document.querySelectorAll('.faq-item');
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            
+            // Update active button
+            categoryBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.toLowerCase().includes(category) || 
+                    (category === 'all' && btn.textContent === 'All')) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Filter FAQ items
+            faqItems.forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Search Function
+        function searchFAQs() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Search on Enter key
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchFAQs();
+            }
+        });
+    </script>
+</body>
+</html>

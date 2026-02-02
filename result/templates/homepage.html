@@ -202,26 +202,6 @@
     </div>
 </section>
 
-<!-- CTA SECTION -->
-<section class="cta">
-    <div class="container">
-        <div class="cta-content">
-            <h2>Ready to Transform Your Institution?</h2>
-            <p>Join thousands of educational institutions already using ResultManagement</p>
-            <div class="cta-buttons">
-                <a href="{% url 'register' %}" class="cta-btn primary">
-                    <i class="fas fa-rocket"></i>
-                    Start Free Trial
-                </a>
-                <a href="#" class="cta-btn secondary">
-                    <i class="fas fa-calendar"></i>
-                    Schedule Demo
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-
 <!-- FOOTER -->
 <footer class="footer">
     <div class="container">
@@ -233,44 +213,44 @@
                 </div>
                 <p>Modern result management system designed for educational institutions of all sizes.</p>
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/share/17uYH28sg4/"><i class="fab fa-facebook"></i></a>
+                    <a href="https://x.com/PranameshR19061"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.google.com/aclk?sa=L&ai=DChsSEwj6-qSrurqSAxWQC4MDHR9mOC0YACICCAEQABoCc2Y&ae=2&co=1&ase=2&gclid=CjwKCAiAs4HMBhBJEiwACrfNZZHeeZ7-BDCp7354xj42yo9b5twgXBzULXYzHAiz4f92Iu_dfT4_TxoCAZAQAvD_BwE&cid=CAAS0gHkaMHCp5EIGWN52c4OyNI0ZMIczfOLMRE1iXaDrO0XKnJTzNtNkDIneaPt5QJitobSbtIXZwNOeyATcOBCMnwiIMENxefI5kkOtR-NhH4nm7q2KtSKMlycyzvhPF-R7OoYzP_G6GzQ3iuirDs_OXQkfd9-JyagYNK8s9BjlHyAYWmzE1OYiLLGnQngnN-Y95NkBo-ccOkuQ33mX41kFM5B73-Rr6kFtej9zYAXq4fdcQwRt6TeloJE2nKuqzfOtXy1ISquYN_joVi4UgiRnx5hjFQ&cce=2&category=acrcp_v1_71&sig=AOD64_0Eg-3lW2buAxm78QErlhz7qJ4kfQ&q&nis=4&adurl&ved=2ahUKEwiaoZyrurqSAxXGSmwGHSL_IXoQ0Qx6BAgPEAE"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.instagram.com/sagar_roy2011?igsh=MXkwM3Nmaj"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
 
             <div class="footer-section">
-                <h4>Product</h4>
-                <a href="#">Features</a>
-                <a href="#">Pricing</a>
-                <a href="#">Security</a>
-                <a href="#">Roadmap</a>
+                <h4>Quick Links</h4>
+                <a href="{% url 'about_us' %}">About Us</a>
+                <a href="{% url 'services' %}">Services</a>
+                <a href="{% url 'contact' %}">Contact</a>
+                <a href="{% url 'achievements' %}">Achievements</a>
             </div>
 
             <div class="footer-section">
-                <h4>Company</h4>
-                <a href="#">About Us</a>
-                <a href="#">Blog</a>
-                <a href="#">Careers</a>
-                <a href="#">Contact</a>
+                <h4>Useful Links</h4>
+                <a href="{% url 'privacy_policy' %}">Privacy Policy</a>
+                <a href="{% url 'terms_of_service' %}">Terms of Services</a>
+                <a href="{% url 'help' %}">Help</a>
+                <a href="{% url 'faqs' %}">FAQs</a>
             </div>
 
             <div class="footer-section">
                 <h4>Support</h4>
-                <a href="#">Help Center</a>
-                <a href="#">Documentation</a>
-                <a href="#">API</a>
-                <a href="#">Status</a>
+                <a href="{% url 'help_center' %}">Help Center</a>
+                <a href="{% url 'documentation' %}">Documentation</a>
+                <a href="{% url 'whatsapp' %}">WhatsApp</a>
+                <a href="{% url 'status' %}">Status</a>
             </div>
         </div>
 
         <div class="footer-bottom">
             <p>&copy; 2024 ResultManagement. All rights reserved.</p>
             <div class="footer-links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Cookie Policy</a>
+                <a href="{% url 'privacy_policy' %}">Privacy Policy</a>
+                <a href="{% url 'terms_of_service' %}">Terms of Service</a>
+                <a href="{% url 'cookie_policy' %}">Cookie Policy</a>
             </div>
         </div>
     </div>

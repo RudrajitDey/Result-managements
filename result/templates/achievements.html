@@ -1,0 +1,550 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achievements - Student Result Management System</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}?v=2.1">
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+        
+        .achievements-section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            color: #043e68;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            border-radius: 2px;
+        }
+        
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .achievement-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        
+        .achievement-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+        
+        .achievement-header {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+        
+        .achievement-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+        
+        .achievement-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .achievement-year {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .achievement-content {
+            padding: 30px;
+        }
+        
+        .achievement-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .achievement-stats {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            background: #f8f9fc;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #f5576c;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .timeline-section {
+            background: #f8f9fc;
+            padding: 80px 20px;
+        }
+        
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 30px;
+            position: relative;
+            margin: 50px 0;
+            width: 50%;
+        }
+        
+        .timeline-item:nth-child(even) {
+            align-self: flex-end;
+            justify-content: flex-start;
+            padding-left: 30px;
+            padding-right: 0;
+            margin-left: 50%;
+        }
+        
+        .timeline-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            top: 30px;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            border-radius: 50%;
+            border: 4px solid white;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -40px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -40px;
+        }
+        
+        .timeline-date {
+            font-weight: 600;
+            color: #f5576c;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-title {
+            font-size: 1.3rem;
+            color: #043e68;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-description {
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .certificates-section {
+            padding: 80px 20px;
+        }
+        
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .certificate-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .certificate-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .certificate-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+        }
+        
+        .certificate-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .certificate-title {
+            font-size: 1.3rem;
+            color: #043e68;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .certificate-issuer {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .certificate-date {
+            color: #f5576c;
+            font-weight: 600;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .achievements-grid,
+            .certificates-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 60px;
+                padding-right: 0;
+            }
+            
+            .timeline-item:nth-child(even) {
+                margin-left: 0;
+            }
+            
+            .timeline-dot {
+                left: 20px !important;
+                right: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo-title">
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="logo">
+            <h2 style="background: linear-gradient(135deg, #ffffff 0%, #e8f4fd 30%, #ffffff 60%, #d1e9ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; margin: 0; font-size: 2.2rem; font-weight: 800; letter-spacing: 1px; animation: textGlow 4s ease-in-out infinite; font-family: 'Arial', sans-serif; line-height: 1.2; text-align: center; text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);">Student Result Management System</h2>
+        </div>
+    </header>
+
+
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Our Achievements</h1>
+            <p class="hero-subtitle">Celebrating milestones and recognizing excellence in educational technology innovation.</p>
+        </div>
+    </section>
+
+    <!-- ACHIEVEMENTS SECTION -->
+    <section class="achievements-section">
+        <h2 class="section-title">Major Achievements</h2>
+        
+        <div class="achievements-grid">
+            <div class="achievement-card">
+                <div class="achievement-header">
+                    <div class="achievement-icon">🏆</div>
+                    <h3 class="achievement-title">Best EdTech Solution</h3>
+                    <p class="achievement-year">2024</p>
+                </div>
+                <div class="achievement-content">
+                    <p class="achievement-description">Awarded the prestigious "Best Educational Technology Solution" at the Global EdTech Awards for our innovative approach to result management.</p>
+                    <div class="achievement-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-label">Institutions</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">50K+</div>
+                            <div class="stat-label">Students</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">99.9%</div>
+                            <div class="stat-label">Satisfaction</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="achievement-card">
+                <div class="achievement-header">
+                    <div class="achievement-icon">🚀</div>
+                    <h3 class="achievement-title">1 Million Results</h3>
+                    <p class="achievement-year">2023</p>
+                </div>
+                <div class="achievement-content">
+                    <p class="achievement-description">Successfully processed over 1 million student results, helping educational institutions streamline their assessment processes.</p>
+                    <div class="achievement-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">1M+</div>
+                            <div class="stat-label">Results</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">100+</div>
+                            <div class="stat-label">Countries</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-label">Support</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="achievement-card">
+                <div class="achievement-header">
+                    <div class="achievement-icon">🌟</div>
+                    <h3 class="achievement-title">Innovation Excellence</h3>
+                    <p class="achievement-year">2023</p>
+                </div>
+                <div class="achievement-content">
+                    <p class="achievement-description">Recognized for outstanding innovation in educational technology with our AI-powered analytics and automated reporting features.</p>
+                    <div class="achievement-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">15+</div>
+                            <div class="stat-label">Features</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">AI</div>
+                            <div class="stat-label">Powered</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">50%</div>
+                            <div class="stat-label">Time Saved</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TIMELINE SECTION -->
+    <section class="timeline-section">
+        <h2 class="section-title">Our Journey</h2>
+        
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2020</div>
+                    <h3 class="timeline-title">Company Founded</h3>
+                    <p class="timeline-description">Started with a vision to transform educational result management through technology.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2021</div>
+                    <h3 class="timeline-title">First 100 Schools</h3>
+                    <p class="timeline-description">Reached our first milestone of 100 educational institutions using our platform.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2022</div>
+                    <h3 class="timeline-title">Global Expansion</h3>
+                    <p class="timeline-description">Expanded operations to 50+ countries and introduced multilingual support.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2023</div>
+                    <h3 class="timeline-title">AI Integration</h3>
+                    <p class="timeline-description">Launched AI-powered analytics and automated reporting features.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2024</div>
+                    <h3 class="timeline-title">Industry Recognition</h3>
+                    <p class="timeline-description">Received multiple awards and recognized as leading EdTech solution.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CERTIFICATES SECTION -->
+    <section class="certificates-section">
+        <h2 class="section-title">Certifications & Awards</h2>
+        
+        <div class="certificates-grid">
+            <div class="certificate-card">
+                <div class="certificate-icon">🎖️</div>
+                <h3 class="certificate-title">ISO 27001</h3>
+                <p class="certificate-issuer">International Organization for Standardization</p>
+                <p class="certificate-date">Certified 2023</p>
+            </div>
+            
+            <div class="certificate-card">
+                <div class="certificate-icon">🏅</div>
+                <h3 class="certificate-title">GDPR Compliant</h3>
+                <p class="certificate-issuer">European Data Protection</p>
+                <p class="certificate-date">Verified 2023</p>
+            </div>
+            
+            <div class="certificate-card">
+                <div class="certificate-icon">🥇</div>
+                <h3 class="certificate-title">EdTech Excellence</h3>
+                <p class="certificate-issuer">Global Education Awards</p>
+                <p class="certificate-date">Winner 2024</p>
+            </div>
+            
+            <div class="certificate-card">
+                <div class="certificate-icon">🎯</div>
+                <h3 class="certificate-title">Security Certified</h3>
+                <p class="certificate-issuer">Security Standards Council</p>
+                <p class="certificate-date">Audited 2024</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>&copy; 2024 Student Result Management System. All rights reserved.</p>
+    </footer>
+</body>
+</html>
